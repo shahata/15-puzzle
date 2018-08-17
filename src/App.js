@@ -4,29 +4,25 @@ import {makeMove, shuffle, isSolved, initGame} from './game';
 import './App.css';
 
 class Game extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        started: false,
-        data: initGame(4, 4)
-      };
-    }
+    state = {
+      data: shuffle(initGame(4, 4))
+    };
 
     startGame(){
-      alert('מתחילים');
-      this.setState({started: true});
-      this.setState({data: shuffle(this.state.data)});
+      this.setState({data: shuffle(initGame(4, 4))});
     }
 
     makeMove(row, column) {
-      this.setState(makeMove(this.state.data, row, column));
+      if (!isSolved(this.state.data)) {
+        this.setState({data: makeMove(this.state.data, row, column)});
+      }
     }
 
     componentDidUpdate() {
       if (isSolved(this.state.data)) {
         setTimeout(() => {
           alert('כל הכבוד!');
-          this.setState({started: false, data: shuffle(this.state.data)});
+          this.startGame();
         }, 100);
       }
     }
@@ -34,10 +30,10 @@ class Game extends Component {
     render() {
       return (
         <div>
-          <button onClick={() => this.startGame()}>שלום</button>
-          {this.state.started ? <table>{this.state.data.map((x, row) => <tr>{x.map((y, column) => {
-            return <td onClick={() => this.makeMove(row, column)}>{y}</td>;
-          })}</tr>)}</table> : null}
+          <span className="NewGame" role="img" aria-label="New Game" onClick={() => this.startGame()}>🔄</span>
+          <table><tbody>{this.state.data.map((x, row) => <tr key={row}>{x.map((y, column) => {
+            return <td key={column} onClick={() => this.makeMove(row, column)} className={y ? 'cell' : 'empty'}>{y}</td>;
+          })}</tr>)}</tbody></table>
         </div>
       )
     }
@@ -51,9 +47,6 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">פאזל 15</h1>
         </header>
-        <p className="App-intro">
-          דרור תלמי
-        </p>
         <Game/>
       </div>
     );

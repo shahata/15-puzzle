@@ -18,8 +18,10 @@
   font-size: 1.5em;
 }
 
-.App-intro {
-  font-size: large;
+.NewGame {
+  font-size: 40px;
+  cursor: pointer;
+  margin: auto;
 }
 
 @keyframes App-logo-spin {
@@ -29,13 +31,27 @@
 
 table {
   margin: auto;
-  padding-top: 100px;
+  margin-top: 50px;
   table-layout: fixed;
+  border: 20px solid purple;
+  border-radius: 10px;
+  background-color: tan;
 }
 
 td {
+  border-radius: 10px;
+  background-color: yellow;
   border: 1px solid black;
   width: 150px;
   height: 150px;
   font-size: 90px;
+}
+
+td.cell {
+  cursor: pointer;
+}
+
+td.empty {
+  background-color: transparent;
+  border: 0;
 }
