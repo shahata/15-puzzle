@@ -11,7 +11,7 @@ export function makeMove(data, row, column) {
   return data;
 }
 
-export function shuffle(data) {
+function shuffle(data) {
   do {
     for (let i = 0; i < 1000000; i++) {
       data = makeMove(data, Math.floor(Math.random() * data.length), Math.floor(Math.random() * data[0].length));
@@ -20,7 +20,7 @@ export function shuffle(data) {
   return data;
 }
 
-export function initGame(rows, columns) {
+function ordered(rows, columns) {
   const data = [];
   let counter = 1;
   for (let i = 0; i < rows; i++) {
@@ -35,8 +35,12 @@ export function initGame(rows, columns) {
   return data;
 }
 
+export function initGame(rows, columns) {
+  return shuffle(ordered(rows, columns));
+}
+
 export function isSolved(data) {
-  const solved = initGame(data.length, data[0].length);
+  const solved = ordered(data.length, data[0].length);
   return solved.every((row, rowIndex) => row.every((column, columnIndex) => {
     return solved[rowIndex][columnIndex] === data[rowIndex][columnIndex];
   }));
