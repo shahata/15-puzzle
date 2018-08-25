@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import {makeMove, shuffle, isSolved, initGame} from './game';
+import {makeMove, isSolved, initGame} from './game';
 import './App.css';
 
 class Game extends Component {
     state = {
-      data: shuffle(initGame(4, 4))
+      data: initGame(4, 4)
     };
 
     startGame(){
-      this.setState({data: shuffle(initGame(4, 4))});
+      this.setState({data: initGame(4, 4)});
     }
 
     makeMove(row, column) {
