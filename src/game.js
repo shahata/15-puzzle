@@ -11,7 +11,7 @@ export function makeMove(data, row, column) {
   return data;
 }
 
-function shuffle(data) {
+export function shuffle(data) {
   do {
     for (let i = 0; i < 1000000; i++) {
       data = makeMove(data, Math.floor(Math.random() * data.length), Math.floor(Math.random() * data[0].length));
@@ -32,7 +32,7 @@ export function initGame(rows, columns) {
     }
   }
   data[rows - 1][columns - 1] = null;
-  return shuffle(data);
+  return data;
 }
 
 export function isSolved(data) {
